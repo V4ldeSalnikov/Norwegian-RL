@@ -1,0 +1,54 @@
+# Policy / reference models
+model_name: synquid/gemma-3-4b-dolci-sft
+reference_model_name: null
+
+dataset_path: data/no_robots_da_128.jsonl
+dataset_name: HuggingFaceH4/no_robots
+dataset_split: train
+dataset_max_samples: null
+
+# translation dataset building
+translation_output_path: data/no_robots_da_128.jsonl
+translation_num_prompts: 128
+translation_batch_size: 16
+translation_max_new_tokens: 256
+translation_cache_path: cache/no_robots_en_da.jsonl
+
+# Output
+output_dir: checkpoints
+
+# Training schedule
+steps: 500
+prompts_per_step: 8
+group_size: 4
+
+# Generation
+max_new_tokens: 1024
+temperature: 1.0
+top_p: 1.0
+
+# Optimization 
+learning_rate: 1.0e-6
+weight_decay: 0.1
+adam_beta1: 0.9
+adam_beta2: 0.99
+adam_eps: 1.0e-8
+warmup_ratio: 0.1
+beta: 1.0e-2
+train_batch_size: 1
+grad_accum_steps: 1
+max_grad_norm: 1.0
+
+# Runtime
+seed: 42
+
+# Logging / checkpoints
+save_every: 25
+print_every: 1
+
+# Fallback when output of the judge not parsable 
+parse_fail_score: 3.0
+
+# wandb
+wandb_project: DanishRL
+wandb_run_name: run-1 test
