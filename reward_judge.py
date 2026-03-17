@@ -14,7 +14,7 @@ from prompt import build_danish_reward_judge_prompt
 
 JUDGE_MODEL_NAME = "google/gemma-3-4b-it"
 JUDGE_TEMPERATURE = 0.2
-JUDGE_MAX_NEW_TOKENS = 256
+JUDGE_MAX_NEW_TOKENS = 2048
 
 _JUDGE_MODEL = None
 _JUDGE_TOKENIZER = None
