@@ -12,7 +12,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from prompt import build_danish_reward_judge_prompt
 
-JUDGE_MODEL_NAME = "google/gemma-3-4b-it"
+JUDGE_MODEL_NAME = "mistralai/Mistral-Nemo-Instruct-2407"
 JUDGE_TEMPERATURE = 0.2
 JUDGE_MAX_NEW_TOKENS = 2048
 
@@ -60,7 +60,7 @@ def _build_judge_prompt(prompt: str, response: str, gold_response: str | None) -
     }
     return build_danish_reward_judge_prompt(payload)
 
-#Extract score from the judge response
+
 def _extract_score(text: str, default_score: float) -> tuple[float, bool]:
     matches = list(re.finditer(r"(?:Score\s*:\s*)?(10|[1-9])\s*/\s*10", text))
     if matches:
@@ -109,7 +109,7 @@ def score_group(
     gold_response: str | None,
     default_score: float,
 ) -> tuple[list[float], int, str]:
-    """Score a group of candidate responses """
+    """Score a group of candidate responses with Gemma judge."""
     scores: list[float] = []
     parse_fail_count = 0
     first_judge_response_text = ""
