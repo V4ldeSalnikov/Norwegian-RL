@@ -76,13 +76,22 @@ def _load_no_robots_records(
     if max_samples is not None:
         ds = ds.select(range(min(max_samples, len(ds))))
 
+    required_columns = {"translated prompt", "golden response"}
+    missing = required_columns.difference(ds.column_names)
+    if missing:
+        raise ValueError(
+            f"Dataset {dataset_name} is missing required columns: {sorted(missing)}. "
+            "Expected columns: ['translated prompt', 'golden response']."
+        )
+
     records: list[PromptRecord] = []
     for row in ds:
-        prompt = str(row.get("prompt", "")).strip()
-        messages = row.get("messages")
-        gold = _extract_gold_from_messages(messages if isinstance(messages, list) else None)
+        prompt = str(row["translated prompt"]).strip()
+        gold = row["golden response"]
         if prompt:
-            records.append(PromptRecord(prompt=prompt, gold_response=gold))
+            records.append(
+                PromptRecord(prompt=prompt, gold_response=None if gold is None else str(gold))
+            )
 
     if not records:
         raise ValueError(

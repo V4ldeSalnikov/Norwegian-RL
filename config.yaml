@@ -2,17 +2,10 @@
 model_name: synquid/gemma-3-4b-dolci-sft
 reference_model_name: null
 
-dataset_path: data/no_robots_da_128.jsonl
-dataset_name: HuggingFaceH4/no_robots
+dataset_path: null
+dataset_name: V4ldeLund/no_robots_da_translated
 dataset_split: train
-dataset_max_samples: null
-
-# translation dataset building
-translation_output_path: data/no_robots_da_128.jsonl
-translation_num_prompts: 128
-translation_batch_size: 16
-translation_max_new_tokens: 256
-translation_cache_path: cache/no_robots_en_da.jsonl
+dataset_max_samples: 128
 
 # Output
 output_dir: checkpoints
@@ -23,7 +16,7 @@ prompts_per_step: 8
 group_size: 4
 
 # Generation
-max_new_tokens: 1024
+max_new_tokens: 2048
 temperature: 1.0
 top_p: 1.0
 
